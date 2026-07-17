@@ -1,0 +1,12 @@
+{
+  "name": "melodia-root",
+  "version": "1.0.0",
+  "description": "Melodia root package for running client and server concurrently",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix web\" \"npm run dev --prefix server\"",
+    "install:all": "npm install && npm install --prefix web && npm install --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
