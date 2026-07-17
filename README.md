@@ -1,8 +1,9 @@
-##🎵 Melodia
+## 🎵 Melodia
 
 A modern, full-stack music streaming web app built with Next.js, featuring YouTube-powered playback, custom playlists, synced lyrics, and a polished dark-themed UI.
 
-![Melodia Screenshot](./screenshot.png)
+<img width="1917" height="1002" alt="image" src="https://github.com/user-attachments/assets/8e75707e-86cc-41f3-bb06-429c35adee92" />
+
 <!-- Replace with an actual screenshot from /mnt/user-data or your repo root before pushing -->
 
 ---
