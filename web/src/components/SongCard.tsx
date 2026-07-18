@@ -17,8 +17,14 @@ const PlaylistMenu = ({
   menuPosition,
   menuContentRef
 }: any) => {
+  const curatedPlaylists = playlists.filter((p: any) => p.isCurated && p.id !== "liked_songs");
+  const likedSongsPlaylist = playlists.find((p: any) => p.id === "liked_songs");
   const customPlaylists = playlists.filter((p: any) => !p.isCurated);
-  const curatedPlaylists = playlists.filter((p: any) => p.isCurated);
+  const orderedPlaylists = [
+    ...(likedSongsPlaylist ? [likedSongsPlaylist] : []),
+    ...curatedPlaylists,
+    ...customPlaylists
+  ];
 
   const renderPlaylistOption = (p: any) => {
     const isAdded = p.tracks?.some((t: any) => t.id === song.id);
@@ -50,11 +56,11 @@ const PlaylistMenu = ({
     >
       <div className="max-h-60 overflow-y-auto scrollbar-hide">
         <div className="text-xs text-[#9D84C7] font-bold px-3 py-2 border-b border-[#32234f] mb-1">Your Playlists</div>
-        {customPlaylists.length === 0 ? (
+        {orderedPlaylists.length === 0 ? (
           <div className="px-3 py-1 text-xs text-[#9D84C7] opacity-60 mb-1">No playlists created yet</div>
         ) : (
           <div className="mb-2">
-            {customPlaylists.map(renderPlaylistOption)}
+            {orderedPlaylists.map(renderPlaylistOption)}
           </div>
         )}
       </div>
