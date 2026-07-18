@@ -1,11 +1,11 @@
 "use client";
 
-import { Search, User } from "lucide-react";
+import { Search, User, Menu } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Show, UserButton, SignInButton } from "@clerk/nextjs";
 
-export function TopBar() {
+export function TopBar({ onMenuClick }: { onMenuClick?: () => void }) {
   const [query, setQuery] = useState("");
   const router = useRouter();
 
@@ -27,7 +27,16 @@ export function TopBar() {
 
   return (
     <div className="h-16 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-10 bg-[#121212]/90 backdrop-blur-md">
-      {/* Search Input */}
+      <div className="flex items-center gap-3">
+        {/* Mobile Hamburger Menu */}
+        <button 
+          className="md:hidden text-gray-400 hover:text-white transition-colors p-1"
+          onClick={onMenuClick}
+        >
+          <Menu size={24} />
+        </button>
+
+        {/* Search Input */}
       <div className="relative">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
           <Search size={20} />
@@ -40,6 +49,7 @@ export function TopBar() {
           placeholder="What do you want to listen to?" 
           className="bg-[#242424] text-white text-sm rounded-full pl-10 pr-4 py-2.5 w-[160px] sm:w-[350px] focus:outline-none focus:ring-2 focus:ring-white/20 transition-all hover:bg-[#2a2a2a]"
         />
+      </div>
       </div>
 
       {/* Profile */}

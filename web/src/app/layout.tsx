@@ -28,7 +28,7 @@ export default function RootLayout({
               colorPrimary: '#FF2E74',
               colorBackground: '#15101F',
               colorText: '#FFFFFF',
-              colorTextSecondary: '#D1D5DB', // text-gray-300
+              colorTextSecondary: '#E5E7EB', // text-gray-200
               colorInputText: '#FFFFFF',
               colorInputBackground: '#211735',
               colorDanger: '#FF3366',
@@ -77,7 +77,7 @@ export default function RootLayout({
               accordionTriggerButton: 'hover:bg-white/5',
               
               // Badges & Inputs
-              badge: 'bg-[#211735] border border-[#FF2E74]/30 text-[#FF2E74]',
+              badge: 'bg-[#211735] border border-white/20 !text-[#E5E7EB]',
               formFieldInput: 'bg-white/10 border border-white/30 text-white placeholder:text-white/40 focus:ring-2 focus:ring-[#FF2E74]/50 focus:border-[#FF2E74] focus:outline-none transition-all',
               otpCodeFieldInput: '!bg-white/10 border !border-white/30 !text-white focus:ring-2 focus:ring-[#FF2E74]/50 focus:!border-[#FF2E74] focus:outline-none transition-all',
               
@@ -91,6 +91,13 @@ export default function RootLayout({
               // Dividers
               dividerLine: 'bg-[#211735]',
               dividerText: '!text-gray-400',
+              
+              // Identity Preview
+              identityPreviewText: '!text-[#E5E7EB]',
+              identityPreviewEditButton: '!text-[#E5E7EB] hover:!text-white transition-colors',
+              
+              // Alternative Methods
+              alternativeMethodsBlockButtonText: '!text-[#E5E7EB] font-medium',
             }
           } as any)}
         >

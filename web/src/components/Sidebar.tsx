@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Search, Library, Plus, Heart, Music, Trash2, Compass } from "lucide-react";
+import { Home, Search, Library, Plus, Heart, Music, Trash2, Compass, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { usePlaylists } from "@/hooks/usePlaylists";
@@ -26,7 +26,13 @@ export function EmptyPlaylistIcon({ name }: { name: string }) {
   );
 }
 
-export function Sidebar() {
+export function Sidebar({ 
+  isMobileOpen = false, 
+  onClose 
+}: { 
+  isMobileOpen?: boolean;
+  onClose?: () => void;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const { playlists, createPlaylist, deletePlaylist } = usePlaylists();
@@ -48,13 +54,34 @@ export function Sidebar() {
   const customPlaylists = playlists.filter(p => !p.isCurated);
 
   return (
-    <div className="hidden md:flex w-[240px] glass-panel flex-shrink-0 flex-col h-full relative z-10">
-      {/* Top Nav */}
-      <div className="p-6 pb-2">
-        <Link href="/">
-          <h1 className="text-2xl font-bold text-[#FF3366] mb-8 cursor-pointer hover:text-[#ff4d79] transition tracking-tight font-display">MELODIA</h1>
-        </Link>
-        
+    <>
+      {/* Mobile overlay backdrop */}
+      {isMobileOpen && (
+        <div 
+          className="md:hidden fixed inset-0 bg-black/60 z-40 transition-opacity"
+          onClick={onClose}
+        />
+      )}
+
+      <div className={`
+        fixed inset-y-0 left-0 z-50 w-[240px] glass-panel flex-shrink-0 flex-col h-[100dvh] md:h-[calc(100vh-90px)] md:overflow-hidden
+        transition-transform duration-300 md:relative md:flex md:translate-x-0
+        ${isMobileOpen ? 'translate-x-0 flex' : '-translate-x-full hidden md:flex'}
+      `}>
+        {/* Top Nav */}
+        <div className="p-6 pb-2">
+          <div className="flex items-center justify-between mb-8">
+            <Link href="/">
+              <h1 className="text-2xl font-bold text-[#FF3366] cursor-pointer hover:text-[#ff4d79] transition tracking-tight font-display">MELODIA</h1>
+            </Link>
+            <button 
+              className="md:hidden text-gray-400 hover:text-white transition-colors"
+              onClick={onClose}
+            >
+              <X size={24} />
+            </button>
+          </div>
+          
         <nav className="flex flex-col gap-2 font-semibold">
           <Link href="/" className={`flex items-center gap-4 cursor-pointer transition-all duration-200 rounded-full py-2.5 px-4 ${pathname === "/" ? "bg-[#FF3366] text-white shadow-md" : "text-[#9D84C7] hover:bg-white/5 hover:text-[#F8F5F0]"}`}>
             <Home size={24} />
@@ -74,7 +101,7 @@ export function Sidebar() {
       <div className="mx-6 my-4 border-t border-[#201633]"></div>
 
       {/* Playlists */}
-      <div className="flex-1 overflow-y-auto px-6 py-2 scrollbar-hide">
+      <div className="flex-1 overflow-y-auto min-h-0 px-6 py-2 scrollbar-hide [-webkit-overflow-scrolling:touch]">
         <div className="flex flex-col gap-3 text-[#9D84C7] text-sm font-medium">
           <div className="flex items-center justify-between text-[#9D84C7] text-xs uppercase tracking-wider font-semibold mb-1 font-display">
             <span>Your Playlists</span>
@@ -186,6 +213,7 @@ export function Sidebar() {
           })}
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
