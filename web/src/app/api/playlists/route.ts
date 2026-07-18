@@ -15,13 +15,18 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { action, playlistId, name, track, trackId, playlists: migratedPlaylists } = await request.json();
+    const { action, playlistId, name, track, trackId, playlists: migratedPlaylists, userId } = await request.json();
     const playlists = await db.getPlaylists();
 
     if (action === "create") {
+      console.log(`[Playlists API] Creating playlist: ${name} for user: ${userId}`);
+      if (!userId) {
+        console.warn("[Playlists API] Warning: userId is missing when creating a playlist.");
+      }
       const newPlaylist = {
         id: `playlist_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
         name,
+        userId: userId || null,
         tracks: [],
         createdAt: Date.now(),
       };

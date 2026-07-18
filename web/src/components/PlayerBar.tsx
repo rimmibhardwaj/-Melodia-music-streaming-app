@@ -60,17 +60,12 @@ const PlaylistMenu = ({
       <div className="max-h-60 overflow-y-auto scrollbar-hide">
         <div className="text-xs text-[#9D84C7] font-bold px-3 py-2 border-b border-[#32234f] mb-1">Your Playlists</div>
         {customPlaylists.length === 0 ? (
-          <div className="px-3 py-1 text-xs text-[#9D84C7] opacity-60 mb-1">No custom playlists</div>
+          <div className="px-3 py-1 text-xs text-[#9D84C7] opacity-60 mb-1">No playlists created yet</div>
         ) : (
           <div className="mb-2">
             {customPlaylists.map(renderOption)}
           </div>
         )}
-        
-        <div className="text-xs text-[#9D84C7] font-bold px-3 py-2 border-t border-b border-[#32234f] mb-1 mt-1">Curated Playlists</div>
-        <div className="mb-1">
-          {curatedPlaylists.map(renderOption)}
-        </div>
       </div>
     </div>
   );

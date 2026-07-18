@@ -40,12 +40,18 @@ export function Sidebar({
   const [isCreating, setIsCreating] = useState(false);
   const [newPlaylistName, setNewPlaylistName] = useState("");
 
-  const handleCreatePlaylist = (e: React.FormEvent) => {
+  const handleCreatePlaylist = async (e: React.FormEvent | React.KeyboardEvent) => {
     e.preventDefault();
     if (newPlaylistName.trim()) {
-      createPlaylist(newPlaylistName.trim());
-      setNewPlaylistName("");
-      setIsCreating(false);
+      try {
+        console.log("Creating playlist with name:", newPlaylistName.trim());
+        await createPlaylist(newPlaylistName.trim());
+        console.log("Playlist created successfully");
+        setNewPlaylistName("");
+        setIsCreating(false);
+      } catch (error) {
+        console.error("Failed to create playlist:", error);
+      }
     }
   };
 
@@ -121,6 +127,12 @@ export function Sidebar({
                 autoFocus
                 value={newPlaylistName}
                 onChange={(e) => setNewPlaylistName(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleCreatePlaylist(e);
+                  }
+                }}
                 onBlur={() => {
                   if (!newPlaylistName.trim()) setIsCreating(false);
                 }}

@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { Song, Playlist } from "@/types";
+import { useAuth } from "@clerk/nextjs";
 
 export function usePlaylists() {
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { userId } = useAuth();
 
   const loadPlaylists = useCallback(async () => {
     try {
@@ -63,7 +65,7 @@ export function usePlaylists() {
       const res = await fetch("/api/playlists", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "create", name }),
+        body: JSON.stringify({ action: "create", name, userId }),
       });
       if (res.ok) {
         const newPlaylist = await res.json();
